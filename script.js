@@ -1,3 +1,4 @@
+// Variáveis do cronômetro
 let segundos = 0;
 let milissegundos = 0;
 let intervalo = null;
@@ -7,10 +8,43 @@ const startBtn = document.getElementById('startBtn');
 const pauseBtn = document.getElementById('pauseBtn');
 const resetBtn = document.getElementById('resetBtn');
 
+// Botões de troca de tema
+const mudaTemaLua = document.getElementById('mudaTemaLua');
+const mudaTemaSol = document.getElementById('mudaTemaSol');
+
+// Eventos do cronômetro
 startBtn.addEventListener('click', iniciarCronometro);
 pauseBtn.addEventListener('click', pausarCronometro);
 resetBtn.addEventListener('click', resetarCronometro);
 
+// Eventos de troca de tema
+mudaTemaLua.addEventListener('click', () => {
+    document.body.classList.add('dark-mode');
+    atualizaBotoesTema();
+});
+
+mudaTemaSol.addEventListener('click', () => {
+    document.body.classList.remove('dark-mode');
+    atualizaBotoesTema();
+});
+
+// Atualiza os botões de tema com base no estado atual
+function atualizaBotoesTema() {
+    if (document.body.classList.contains('dark-mode')) {
+        mudaTemaLua.style.display = 'none';
+        mudaTemaSol.style.display = 'block';
+    } else {
+        mudaTemaLua.style.display = 'block';
+        mudaTemaSol.style.display = 'none';
+    }
+}
+
+// Configura o estado inicial dos botões de tema ao carregar a página
+document.addEventListener('DOMContentLoaded', () => {
+    atualizaBotoesTema();
+});
+
+// Funções do cronômetro
 function iniciarCronometro() {
     if (intervalo) return; // Evita iniciar múltiplos cronômetros
 
@@ -27,7 +61,7 @@ function iniciarCronometro() {
 function pausarCronometro() {
     clearInterval(intervalo);
     intervalo = null; // Reseta o intervalo
-    atualizaDisplay(); 
+    atualizaDisplay();
 }
 
 function resetarCronometro() {
